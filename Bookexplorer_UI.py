@@ -1,6 +1,12 @@
+import os
 import streamlit as st
 import mysql.connector
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Set SSL certificate path
+os.environ['SSL_CERT_FILE'] = r'C:/Users/remor/Downloads/isrgrootx1.pem'
 
 # Function to execute SQL queries and return results as DataFrame
 def query_db(query):
@@ -62,14 +68,37 @@ if st.sidebar.button("Run Query"):
     st.write(f"## Query Results for: {selected_query}")
     st.write(df)
 
-    # Show query results as a chart if applicable
+    # Show query results as a bar chart
     if "count" in df.columns:
-        st.bar_chart(df.set_index(df.columns[0])["count"])
+        st.write("### Bar Chart")
+        fig, ax = plt.subplots()
+        sns.barplot(x=df.columns[0], y="count", data=df, ax=ax, palette="muted", ci=None)
+        ax.set_title('Distribution of Counts', fontsize=16)
+        ax.set_xlabel(df.columns[0], fontsize=14)
+        ax.set_ylabel("Count", fontsize=14)
+        plt.xticks(rotation=45, fontsize=12)
+        plt.yticks(fontsize=12)
+        st.pyplot(fig)
     elif "avg_rating" in df.columns:
-        st.bar_chart(df.set_index(df.columns[0])["avg_rating"])
+        st.write("### Average Rating Bar Chart")
+        fig, ax = plt.subplots()
+        sns.barplot(x=df.columns[0], y="avg_rating", data=df, ax=ax, palette="muted", ci=None)
+        ax.set_title('Distribution of Average Ratings', fontsize=16)
+        ax.set_xlabel(df.columns[0], fontsize=14)
+        ax.set_ylabel("Average Rating", fontsize=14)
+        plt.xticks(rotation=45, fontsize=12)
+        plt.yticks(fontsize=12)
+        st.pyplot(fig)
     elif "avg_pageCount" in df.columns:
-        st.bar_chart(df.set_index(df.columns[0])["avg_pageCount"])
-
+        st.write("### Average Page Count Bar Chart")
+        fig, ax = plt.subplots()
+        sns.barplot(x=df.columns[0], y="avg_pageCount", data=df, ax=ax, palette="muted", ci=None)
+        ax.set_title('Distribution of Average Page Counts', fontsize=16)
+        ax.set_xlabel(df.columns[0], fontsize=14)
+        ax.set_ylabel("Average Page Count", fontsize=14)
+        plt.xticks(rotation=45, fontsize=12)
+        plt.yticks(fontsize=12)
+        st.pyplot(fig)
 
 # Footer
 st.markdown("---")
