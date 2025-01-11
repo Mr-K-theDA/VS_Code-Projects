@@ -22,14 +22,17 @@ def get_books(query, max_results=1000):
 
 def insert_books_into_db(books, search_key):
     mydb = mysql.connector.connect(
-        host="gateway01.us-west-2.prod.aws.tidbcloud.com",
-        port=4000,
-        user="4Mh7uwfcjjxZn5F.root",
-        password="yFIpQwQZrVaY6hMD",
-        database="guvi",
-        ssl_ca=r'C:/Users/remor/Downloads/isrgrootx1.pem',
-        ssl_verify_cert=True
-    )
+    host="gateway01.us-west-2.prod.aws.tidbcloud.com",
+    port=4000,
+    user="4Mh7uwfcjjxZn5F.root",
+    password="yFIpQwQZrVaY6hMD",
+    database="guvi",
+    ssl_ca=r'C:/Users/remor/Downloads/isrgrootx1.pem',
+    ssl_verify_cert=True,
+    ssl_cipher='DHE-RSA-AES256-SHA'
+)
+
+    
     mycursor = mydb.cursor()
 
     dummy_publishers = ["Fictional House", "Imaginary Press", "Dummy Publishers Inc.", "Sample Books Ltd.", "Placeholder Publications"]
