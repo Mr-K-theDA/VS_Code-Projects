@@ -3,6 +3,7 @@ import mysql.connector
 import random
 
 def get_books(query, max_results=1000):
+    
     api_key = "AIzaSyB_l2q_vtwMsLvh64501-EoJ_2BcSRduAA"  
     base_url = 'https://www.googleapis.com/books/v1/volumes'
     total_results = []
@@ -44,7 +45,7 @@ def insert_books_into_db(books, search_key):
         book_subtitle = volume_info.get('subtitle', None)
         book_authors = ', '.join(volume_info.get('authors', ['No authors available']))
         
-        # Use dummy publisher names if not available
+        # Using dummy publisher names if not available
         book_publishers = volume_info.get('publisher', random.choice(dummy_publishers))
         
         book_description = volume_info.get('description', None)
